@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Text,
   TextInput,
@@ -12,10 +13,25 @@ const participants = ["Luiz", "Estefane", "Emma"];
 
 export function Home() {
   const handleParticipantAdd = () => {
+    if (participants.includes("Luiz")) {
+      return Alert.alert("Já existe");
+    }
     console.log("Você Clicou");
   };
 
-  const handleParticipantRemove = () => {
+  const handleParticipantRemove = (name: string) => {
+    if (participants.includes("Luiz")) {
+      return Alert.alert("Remover", `Remover ${name}`, [
+        {
+          text: "Sim",
+          onPress: () => Alert.alert("Deletado"),
+        },
+        {
+          text: "Não",
+          style: "cancel",
+        },
+      ]);
+    }
     console.log("Você Clicou");
   };
 
@@ -41,7 +57,7 @@ export function Home() {
           <Participant
             name={item}
             key={item}
-            onRemove={handleParticipantRemove}
+            onRemove={() => handleParticipantRemove(item)}
           />
         )}
         ListEmptyComponent={() => (
